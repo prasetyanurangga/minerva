@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:minerva/model/word_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:minerva/bloc/word/word_bloc.dart';
+import 'package:minerva/bloc/word/word_event.dart';
+import 'package:minerva/bloc/word/word_state.dart';
 import 'package:minerva/pages/item_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -12,25 +16,15 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage>{
-  
-  List<WordModel> _listDummy =  [
-      WordModel(
-        word:"swimming",
-        example : "It also meant, if the worst came to the worst, I could actually jump in and swim across and drag the sledge over after me."
-      ),
-      WordModel(
-        word:"read",
-        example : "what are you reading at the moment?"
-      ),
-      WordModel(
-        word:"home",
-        example : "It turns out your hospitals are killing people, and they should be at home. "
-      ),
-      WordModel(
-        word:"epoch",
-        example : "Epoch is defined as an important period in history or an era."
-      )
-  ];
+
+  @override
+  void initState() { 
+    super.initState();
+    BlocProvider.of<WordBloc>(context).add(
+      GetRandomWord(),
+    );
+  }
+
   
   Widget _buildBody() {
     double width = MediaQuery. of(context). size. width;
@@ -66,23 +60,45 @@ class _MainPageState extends State<MainPage>{
                 ],
               ),
             ),
-            SizedBox(height: 48),
-            SizedBox(
-              width: width,
-              height: 568,
-              child: PageView.builder(
-                controller: PageController(
-                    viewportFraction: 0.9,
-                    initialPage: 0,
-                ),
-                itemCount: _listDummy.length,
-                itemBuilder: (context, index){
-                  return ItemPage(
-                    text: _listDummy[index].word,
-                    example: _listDummy[index].example,
+            SizedBox(height: 32),
+            BlocBuilder<WordBloc, WordState>(
+              builder: (context, state){
+                if(state is WordSuccess) {
+                  var data = state.data;
+                  return SizedBox(
+                    width: width,
+                    height: 568,
+                    child: PageView.builder(
+                      controller: PageController(
+                          viewportFraction: 0.88,
+                          initialPage: 0,
+                      ),
+                      itemCount: data.length,
+                      itemBuilder: (context, index){
+                        return ItemPage(
+                          text: data[index].word,
+                          pronounce: data[index].pronounce,
+                          desc: data[index].indoDesc,
+                        );
+                      }
+                    ),
+                  );
+                } else if (state is WordLoading) {
+                   return Container(
+                    height: 400,
+                    child: Center(
+                      child : SpinKitChasingDots(
+                        color: Theme.of(context).primaryColor,
+                        size: 50.0,
+                      )
+                    ),
+                  );
+                } else {
+                  return Center(
+                    child : Text("Not Found")
                   );
                 }
-              )
+              }
             )
           ],
         ),
