@@ -9,12 +9,14 @@ class ItemPage extends StatefulWidget {
     Key key,
     @required this.text,
     @required this.desc,
-    @required this.pronounce
+    @required this.pronounce,
+    this.color
   }) : super(key: key);
 
   final String text;
   final String desc;
   final String pronounce;
+  final Color color;
 
   @override
   _ItemPageState createState() => _ItemPageState();
@@ -200,10 +202,15 @@ class _ItemPageState extends State<ItemPage>   with SingleTickerProviderStateMix
                       borderRadius: BorderRadius.circular(32),
                       color: Theme.of(context).backgroundColor,
                       boxShadow: [
+                        // BoxShadow(
+                        //   offset: Offset(0, 16),
+                        //   color: _open ? Colors.grey[400].withOpacity(0.3) : Colors.transparent,
+                        //   blurRadius: 10,
+                        // )
                         BoxShadow(
                           offset: Offset(0, 22),
-                          color: _open ? Colors.grey[400].withOpacity(0.3) : Colors.transparent,
-                          blurRadius: 10,
+                          color: _open ? Colors.black.withOpacity(0.12) : Colors.transparent,
+                          blurRadius: 40,
                         )
                       ]
                     ),

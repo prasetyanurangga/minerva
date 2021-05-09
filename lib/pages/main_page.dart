@@ -17,6 +17,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage>{
 
+
   @override
   void initState() { 
     super.initState();
@@ -37,14 +38,14 @@ class _MainPageState extends State<MainPage>{
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(vertical:40, horizontal: 40),
+              padding: EdgeInsets.symmetric(vertical:40, horizontal: 48),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "Minerva",
                     style: TextStyle(
-                      fontSize: 32,
+                      fontSize: 40,
                       fontWeight: FontWeight.bold
                     ),
                     textAlign: TextAlign.left,
@@ -60,7 +61,7 @@ class _MainPageState extends State<MainPage>{
                 ],
               ),
             ),
-            SizedBox(height: 32),
+            SizedBox(height: 24),
             BlocBuilder<WordBloc, WordState>(
               builder: (context, state){
                 if(state is WordSuccess) {
@@ -84,18 +85,49 @@ class _MainPageState extends State<MainPage>{
                     ),
                   );
                 } else if (state is WordLoading) {
-                   return Container(
+                    return Container(
+                      height: 400,
+                      child: Center(
+                        child : SpinKitChasingDots(
+                          color: Theme.of(context).primaryColor,
+                          size: 50.0,
+                        )
+                      ),
+                    );
+                } else {
+                  return Container(
                     height: 400,
                     child: Center(
-                      child : SpinKitChasingDots(
-                        color: Theme.of(context).primaryColor,
-                        size: 50.0,
+                      child : Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "No Internet Connection",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                          TextButton(
+                            onPressed: (){
+                              BlocProvider.of<WordBloc>(context).add(
+                                GetRandomWord(),
+                              );
+                            },
+                            child: Text(
+                              "Try Again",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ]
                       )
                     ),
-                  );
-                } else {
-                  return Center(
-                    child : Text("Not Found")
                   );
                 }
               }
