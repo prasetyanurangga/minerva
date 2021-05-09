@@ -6,7 +6,7 @@ class ApiProvider{
   final Dio _dio = Dio();
 
   Future<Response> getRandomWord() async {
-    String _endpoint = "https://minerva-word.herokuapp.com/random";
+    String _endpoint = "";
     Response response;
     try {
       response = await _dio.post(_endpoint);
