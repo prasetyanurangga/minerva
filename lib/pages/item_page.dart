@@ -151,7 +151,7 @@ class _ItemPageState extends State<ItemPage>   with SingleTickerProviderStateMix
                   children: [
                     IconButton(
                       iconSize: 24,
-                      color: _ttsStart ? Colors.white : Color(0xFF5A54C2),
+                      color: Color(0xFF5A54C2),
                       icon : Icon(Icons.volume_up_rounded),
                       onPressed: (){
                         print(_ttsStart);
