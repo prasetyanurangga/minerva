@@ -34,14 +34,14 @@ For more information contact angganurprasetya4@gmail.com
 
 **Download Apk**
 
-[Qtz.apk](https://github.com/prasetyanurangga/qtz/raw/main/Qtz.apk)
+[Minerva.apk](https://github.com/prasetyanurangga/minerva/raw/main/minerva.apk)
 
 **Data**
 
 [FavQs](https://favqs.com/api)
 
-### Hava App Final UI
-![App UI](https://github.com/prasetyanurangga/qtz/raw/main/qtz_app_ui.png)
+### Minerva App Final UI
+![App UI](https://github.com/prasetyanurangga/minerva/raw/main/minerva_app_ui.png)
 
-![Demo](https://github.com/prasetyanurangga/qtz/raw/main/qtz_app.gif)
+![Demo](https://github.com/prasetyanurangga/minerva/raw/main/minerva_app.gif)
 
